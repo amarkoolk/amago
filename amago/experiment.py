@@ -611,6 +611,7 @@ class Experiment:
                         sample=self.sample_actions,
                         hidden_state=hidden_state,
                     )
+
             *_, terminated, truncated, _ = envs.step(actions.squeeze(1).cpu().numpy())
             done = terminated | truncated
             if done.ndim == 2:

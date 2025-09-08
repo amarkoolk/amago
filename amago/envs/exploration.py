@@ -209,3 +209,10 @@ class EpsilonGreedy(BilevelEpsilonGreedy):
             steps_anneal=steps_anneal,
             randomize_eps=randomize_eps,
         )
+
+    @property
+    def env_name(self):
+        # forward if inner has it; else raise a clear error
+        if hasattr(self.env, "env_name"):
+            return self.env.env_name
+        raise AttributeError("Inner env does not expose `env_name`")
