@@ -9,7 +9,7 @@ setup(
     packages=find_packages(include=["amago", "amago.*"]),
     python_requires=">=3.10",
     install_requires=[
-        "gymnasium>=0.26,<=0.29.1",
+        "gymnasium>=1.2.0",
         "torch>=2.5",
         "numpy",
         "gin-config",

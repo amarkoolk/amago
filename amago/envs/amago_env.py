@@ -155,7 +155,7 @@ class AMAGOEnv(gym.Wrapper):
 
 
 class ReturnHistory:
-    def __init__(self, env_name):
+    def __init__(self):
         self.data = {}
 
     def add_score(self, env_name, score):
@@ -168,7 +168,7 @@ class ReturnHistory:
 class SpecialMetricHistory:
     log_prefix = "AMAGO_LOG_METRIC"
 
-    def __init__(self, env_name):
+    def __init__(self):
         self.data = {}
 
     def add_score(self, env_name: str, key: str, value: Any):
@@ -250,14 +250,14 @@ class SequenceWrapper(gym.Wrapper):
 
     def reset_stats(self):
         # stores all of the success/return histories
-        self.return_history = ReturnHistory(self.env_name)
-        self.special_history = SpecialMetricHistory(self.env_name)
+        self.return_history = ReturnHistory()
+        self.special_history = SpecialMetricHistory()
 
     def random_traj_length(self):
         return random.randint(*self.save_every) if self.save_every else None
 
-    def reset(self, seed=None) -> Timestep:
-        timestep, info = self.env.reset(seed=seed)
+    def reset(self, seed=None, options=None) -> Timestep:
+        timestep, info = self.env.reset(seed=seed, options=options)
         assert timestep.batched_envs == self.batched_envs
         self._current_timestep = timestep.as_input()
         self.active_trajs = [

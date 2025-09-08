@@ -6,6 +6,7 @@ import wandb
 import amago
 from amago.envs import AMAGOEnv
 from amago import cli_utils
+import highway_env
 
 
 def add_cli(parser):

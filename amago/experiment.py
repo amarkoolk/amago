@@ -292,7 +292,7 @@ class Experiment:
             par_kwargs = dict()
         else:
             raise ValueError(f"Invalid `env_mode` {self.env_mode}")
-
+        
         if self.exploration_wrapper_type is not None and not issubclass(
             self.exploration_wrapper_type, ExplorationWrapper
         ):
