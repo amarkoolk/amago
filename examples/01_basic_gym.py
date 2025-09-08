@@ -19,7 +19,7 @@ def add_cli(parser):
     parser.add_argument(
         "--eval_timesteps",
         type=int,
-        default=1000,
+        default=100,
         help="Timesteps per actor per evaluation. Tune based on the episode length of the environment (to be at least one full episode).",
     )
     return parser
