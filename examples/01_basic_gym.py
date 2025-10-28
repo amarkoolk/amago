@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
-
+from importlib.resources import files
+import yaml
 import gymnasium as gym
 import wandb
 
@@ -31,10 +32,21 @@ if __name__ == "__main__":
     add_cli(parser)
     args = parser.parse_args()
 
+    # Load Config
+    p = "/u/ark8su/safetyh/dqn_crasher/src/dqn_crasher/configs/env/amago_single.yaml"
+    with open(p, "r") as f:
+        gym_config =  yaml.safe_load(f)
+
+    gym_config["adversarial"] = False
+    gym_config["normalize_reward"] = True
+    gym_config["collision_reward"] = -1
+    gym_config["ttc_x_reward"] = 0
+    gym_config["ttc_y_reward"] = 0
+
     # setup environment
     env_name = args.env.replace("/", "_")
     make_train_env = lambda: AMAGOEnv(
-        gym.make(args.env),
+        gym.make(args.env, config = gym_config),
         env_name=env_name,
     )
     config = {
